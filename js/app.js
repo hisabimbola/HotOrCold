@@ -1,3 +1,11 @@
+var feedback = document.getElementById("feedback");
+
+var userGuess = document.getElementById("userGuess");
+
+var submitGuess = document.getElementById("submitGuess");
+
+var newGame = document.getElementById("newGame");
+
 //A guess game, design by Abimbola Idowu, with Love from Andela....hehehehe
 
 function guessGame () {
@@ -17,25 +25,26 @@ function checkGuess(computerGuess) {
   } else {
     previousGuess = userGuess;
   }
-  userInfo = "Please Enter a Guess between 0 and 100";
-  userGuess = prompt(userInfo);
-  userGuess = +userGuess; //converts userGuess to a number
-  if (userGuess === computerGuess) {
-    return "You guess it";
+  //userInfo = "Please Enter a Guess between 0 and 100";
+  //feedback.innerText = userInfo;
+  //userGuess = prompt(userInfo);
+  userValue = userGuess.value; //converts userGuess to a number
+  if (userValue == computerGuess) {
+    feedback.innerHTML = "You guess it";
+    return;
   } else {
-    console.log(testGuess(computerGuess, userGuess, previousGuess));
+    feedback.innerHTML = testGuess(computerGuess, userValue, previousGuess);
     return checkGuess(computerGuess);
   }
 }
-guessGame();
 
 function testGuess(computerGuess, userGuess, previousGuess) {
   if (Math.abs(computerGuess - userGuess) < Math.abs(computerGuess - previousGuess)) {
-    console.log("Getting Hotter");
+    return "Getting Hotter";
   } else if (Math.abs(computerGuess - userGuess) > Math.abs(computerGuess - previousGuess)) {
-    console.log("Getting Colder");
+    return "Getting Colder";
   } else if (Math.abs(computerGuess - userGuess) == Math.abs(computerGuess - previousGuess)) {
-    console.log("Neither Colder nor Hotter");
+    return "Neither Colder nor Hotter";
   }
 }
 
