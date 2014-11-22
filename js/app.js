@@ -1,97 +1,55 @@
-// var feedback = document.getElementById("feedback");
-
-// var userGuess = document.getElementById("userGuess");
-
-// var submitGuess = document.getElementsByTagName("button")[0];
-
-// var newGame = document.getElementsByTagName("button")[1];
-
-// var computerGuess;
-// //Generates a random number from 0 to 100
-// function guessGame () {  
-//   //generates computer guess
-//   computerGuess = Math.floor(Math.random() * 100);
-//   //console.log(computerGuess);
-//   return computerGuess;
-// }
-
-// function checkGuess(computerGuess) {
-//   var previousGuess;
-//   console.log(computerGuess)
-//   if (typeof userValue != "number") {
-//     previousGuess = 0;
-//   } else {
-//     previousGuess = userValue;
-//   }
-//   console.log(previousGuess);
-//   //userInfo = "Please Enter a Guess between 0 and 100";
-//   //feedback.innerText = userInfo;
-//   //userGuess = prompt(userInfo);
-//   userValue = userGuess.value; //converts userGuess to a number
-//   if (userValue == computerGuess) {
-//     feedback.innerHTML = "You guessed it";
-//     return;
-//   } else {
-//     feedback.innerHTML = testGuess(computerGuess, userValue, previousGuess);
-//     return checkGuess(computerGuess);
-//   }
-// }
-
-// function testGuess(computerGuess, userGuess, previousGuess) {
-//   if (Math.abs(computerGuess - userGuess) < Math.abs(computerGuess - previousGuess)) {
-//     return "Getting Hotter";
-//   } else if (Math.abs(computerGuess - userGuess) > Math.abs(computerGuess - previousGuess)) {
-//     return "Getting Colder";
-//   } else if (Math.abs(computerGuess - userGuess) == Math.abs(computerGuess - previousGuess)) {
-//     return "Neither Colder nor Hotter";
-//   }
-// }
-
-// //Event Listener to call the guessGame once user submit data
-// //window.onload = guessGame;
-// submitGuess.addEventListener("click", checkGuess(computerGuess));
-// newGame.addEventListener("click", guessGame);
-
-
+//Gives feedback back to the user
 var feedback = document.getElementById("feedback");
-
+//userGuess
 var userGuess = document.getElementById("userGuess");
-
+//when user clicks the submit button
 var submitGuess = document.getElementsByTagName("button")[0];
-
+//when user clicks new game
 var newGame = document.getElementsByTagName("button")[1];
+//all variables used declared here
 var computerGuess, 
     previousGuess = 0,
     userGuessValue;
+
+//EventListeners
+//when New game button is press, guessgame function is called
 newGame.addEventListener("click", guessGame);
+//when submit button is pressed, checkguess is called
 submitGuess.addEventListener("click", checkGuess);
 
+//generates random number from 0 to 100
 function guessGame () {  
   computerGuess = Math.floor(Math.random() * 100);
   return computerGuess;
 }
-
+//checks user guess against, computer guess
 function checkGuess () {
-  userGuessValue = +userGuess.value
+
+  userGuessValue = +userGuess.value //converts user guess to a number and stores in a new variable
   
   if (userGuessValue === computerGuess) {
     feedback.innerHTML = "Your guess is correct!";
   } else {
     testGuess(computerGuess, userGuessValue, previousGuess);
   }
+  //sets, the previous guess of the user
   if (previousGuess != userGuessValue) {
     previousGuess = userGuessValue;
   }
   userGuess.value = "";
 }
 
+//gives feedback base on the user previous input
 function testGuess(computerGuess, userGuess, previousGuess) {
-  if (Math.abs(computerGuess - userGuess) < Math.abs(computerGuess - previousGuess)) {
-    feedback.innerHTML = "Getting Hotter";
-  } else if (Math.abs(computerGuess - userGuess) > Math.abs(computerGuess - previousGuess)) {
-    feedback.innerHTML = "Getting Colder";
-  } else if (Math.abs(computerGuess - userGuess) == Math.abs(computerGuess - previousGuess)) {
-    feedback.innerHTML = "Neither Colder nor Hotter";
+  //creates variableto reduce repetition
+  var compUserDiff = Math.abs(computerGuess - userGuess);
+  var compPrevDiff = Math.abs(computerGuess - previousGuess);
+  if (compUserDiff < compPrevDiff) {
+    feedback.innerHTML = "Getting Hotter!";
+  } else if (compUserDiff > compPrevDiff) {
+    feedback.innerHTML = "Getting Colder!";
+  } else if (compUserDiff == compPrevDiff) {
+    feedback.innerHTML = "Neither Colder nor Hotter!";
   }
 }
 
