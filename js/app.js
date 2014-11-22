@@ -17,15 +17,17 @@ newGame.addEventListener("click", guessGame);
 //when submit button is pressed, checkguess is called
 submitGuess.addEventListener("click", checkGuess);
 
+//calls guessGame, when windows loads
+window.onload = guessGame;
+
 //generates random number from 0 to 100
 function guessGame () {  
   computerGuess = Math.floor(Math.random() * 100);
+  feedback.innerHTML = "Please Enter a Guess between 0 and 100";
   return computerGuess;
 }
-//checks user guess against, computer guess
-function checkGuess () {
-
-  userGuessValue = +userGuess.value //converts user guess to a number and stores in a new variable
+//compares user guess against, computer guess
+function compareGuess () {
   
   if (userGuessValue === computerGuess) {
     feedback.innerHTML = "Your guess is correct!";
@@ -41,7 +43,7 @@ function checkGuess () {
 
 //gives feedback base on the user previous input
 function testGuess(computerGuess, userGuess, previousGuess) {
-  //creates variableto reduce repetition
+  //creates variable to reduce repetition
   var compUserDiff = Math.abs(computerGuess - userGuess);
   var compPrevDiff = Math.abs(computerGuess - previousGuess);
   if (compUserDiff < compPrevDiff) {
@@ -53,6 +55,15 @@ function testGuess(computerGuess, userGuess, previousGuess) {
   }
 }
 
+//checks if user input is valid
+function checkGuess () {
+  userGuessValue = +userGuess.value //converts user guess to a number and stores in a new variable
+  if (userGuessValue == 0) {
+    feedback.innerHTML = "Please Enter a number";
+  } else {
+    compareGuess()
+  }
+}
 
 
 
